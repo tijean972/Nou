@@ -12,8 +12,7 @@
 
   
 
-<div>PhoneNumber: {{userInfo.country_code}}{{userInfo.phoneNumber}}</div>
-<div>{{userInfo}}</div>
+<div *ngIf="userInfo.phoneNumber"> PhoneNumber: {{userInfo.country_code}}{{userInfo.phoneNumber}}</div>
 <button ion-button color="primary" (click)="register()">Register</button>
 
 
