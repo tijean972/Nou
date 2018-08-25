@@ -9,6 +9,11 @@ import { MesAnnoncesPage } from '../mes-annonces/mes-annonces';
 // Service
 import { AuthService } from '../../services/auth.service';
 
+// Traduction
+import { TranslateService } from '@ngx-translate/core';
+
+
+
 
 @Component({
   selector: 'page-home',
@@ -16,11 +21,19 @@ import { AuthService } from '../../services/auth.service';
 })
 export class HomePage {
   userInfo:any ={};
+  lang:any;
 
-  constructor(public navCtrl: NavController, private auth: AuthService) {
-    
+  constructor(public navCtrl: NavController, private auth: AuthService, public translate: TranslateService) {
+    this.lang = 'en';
+    this.translate.setDefaultLang('en');
+    this.translate.use('en');
   }
 
+  switchLanguage() {
+    this.translate.use(this.lang);
+  }
+
+  
 
   register(){
     (<any>window).AccountKitPlugin.loginWithPhoneNumber({
@@ -37,7 +50,7 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-    this.isConnected();
+    //this.isConnected();
   }
   
   isConnected(){
@@ -46,7 +59,7 @@ export class HomePage {
         if (user){
           console.log(user.toJSON());
           console.log('on est connecté');
-          this.navCtrl.setRoot(MesAnnoncesPage);
+          //this.navCtrl.setRoot(MesAnnoncesPage);
           
         } else {
           console.log('On est pas connecté');

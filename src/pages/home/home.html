@@ -9,7 +9,27 @@
 
 <ion-content padding>
   <h3>Ionic Menu Starter</h3>
+  <ion-list>
+    <ion-item>
+      <ion-label>Language</ion-label>
+      <ion-select [(ngModel)]="lang" (ionChange)="switchLanguage()">
+      <ion-option value="en">Mada</ion-option>
+      <ion-option value="guada">guada</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
 
+  <ion-list>
+    <ion-item>
+     <h2>{{ 'APPLE' | translate }}</h2>
+    </ion-item>
+    <ion-item>
+     <h2>{{ 'BALL' | translate }}</h2>
+    </ion-item>
+    <ion-item>
+     <h2>{{ 'CAT' | translate }}</h2>
+    </ion-item>
+   </ion-list>
   
 
 <div *ngIf="userInfo.phoneNumber"> PhoneNumber: {{userInfo.country_code}}{{userInfo.phoneNumber}}</div>

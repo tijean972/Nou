@@ -27,11 +27,5 @@ export class AuthService {
 		return this.afAuth.auth.sendPasswordResetEmail(email);
 		  
 	}
-
-	getUser() : Promise <any>{
-		return new Promise ((resolve, reject) =>{
-			this.afAuth.auth.currentUser;
-		})
-	}
  
 }

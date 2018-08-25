@@ -24,10 +24,13 @@ import { AngularFireAuth } from 'angularfire2/auth'
 import { userProflService } from '../services/UserProfilService';
 import { AuthService } from '../services/auth.service';
 
+// Module traduction
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 
 // Déclaration firebase 
-
 const Enrironnement = {
   production: false,
   firebase: {
@@ -38,8 +41,12 @@ const Enrironnement = {
     storageBucket: "yucom-681ef.appspot.com",
     messagingSenderId: "814152405605"
   }
-}
+};
 
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
+};
 
 
 @NgModule({
@@ -51,12 +58,21 @@ const Enrironnement = {
     ForgotPasswordPage,
     MesAnnoncesPage,
     ListPage
+    
   ],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(Enrironnement.firebase),
     AngularFireDatabaseModule,
     IonicModule.forRoot(MyApp),
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient]
+      }
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
