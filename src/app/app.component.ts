@@ -36,7 +36,7 @@ export class MyApp {
     this.platform.ready().then(() => {
       if(this.platform.is('android') || this.platform.is('ios')){
         this.statusBar.styleDefault();
-      this.splashScreen.hide();
+         this.splashScreen.hide();
       }
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.

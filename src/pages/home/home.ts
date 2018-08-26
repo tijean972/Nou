@@ -24,9 +24,9 @@ export class HomePage {
   lang:any;
 
   constructor(public navCtrl: NavController, private auth: AuthService, public translate: TranslateService) {
-    this.lang = 'en';
-    this.translate.setDefaultLang('en');
-    this.translate.use('en');
+    this.lang = 'mada';
+    this.translate.setDefaultLang('mada');
+    this.translate.use('mada');
   }
 
   switchLanguage() {
