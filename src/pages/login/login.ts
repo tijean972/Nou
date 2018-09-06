@@ -62,7 +62,7 @@ export class LoginPage {
         error => {
             this.loginError = error.message;
             console.log(this.loginError);
-            this.navCtrl.setRoot(SignupPage, { info: this.info_tel });
+            //this.navCtrl.setRoot(SignupPage, { info: this.info_tel });
         },
         
 			);
