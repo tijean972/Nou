@@ -3,10 +3,15 @@ import { List } from "lodash";
 
 
 export interface annonce {
-    idAnnonce: string;
-    idEmmetteur: string;
+    idAnnonce;
     title: string;
-    categorie: [string];
-    competenceRequise: [string];
-    contenu: string;
-}
+    Message: string;
+    createAnnonce: string;
+    idEmmetteur: string;
+    //categorie: [string];
+    //competenceRequise: [string];
+    //nbLike: number;
+    }
+    
+    
+    

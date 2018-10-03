@@ -1,7 +1,7 @@
 import { List } from "lodash";
-import { annonce } from "../model/annonceModel"
+
 	
-export interface userProfl {
+export interface userProfil {
     Userid : string;
     numeroTel: string;
     email: string;
@@ -11,6 +11,5 @@ export interface userProfl {
     ProfilLinkedin: JSON;
     ProfilInstagram:JSON;
     competence : List <string>;
-    annonces: List<annonce>;
 }
 

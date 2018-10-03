@@ -10,6 +10,7 @@ import { SignupPage } from '../pages/signup/signup';
 import { ListPage } from '../pages/list/list';
 import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
 import { MesAnnoncesPage } from '../pages/mes-annonces/mes-annonces';
+import { AddAnnoncesPage } from '../pages/add-annonces/add-annonces';
 
 // Ionic - Cordova
 import { StatusBar } from '@ionic-native/status-bar';
@@ -28,6 +29,9 @@ import { AuthService } from '../services/auth.service';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+//DAO
+import { AnnonceListService } from '../services/AnnonceService';
 
 
 // Déclaration firebase 
@@ -57,6 +61,7 @@ export function createTranslateLoader(http: HttpClient) {
     SignupPage,
     ForgotPasswordPage,
     MesAnnoncesPage,
+    AddAnnoncesPage,
     ListPage
     
   ],
@@ -82,6 +87,7 @@ export function createTranslateLoader(http: HttpClient) {
     SignupPage,
     ForgotPasswordPage,
     MesAnnoncesPage,
+    AddAnnoncesPage,
     ListPage
   ],
   providers: [
@@ -90,7 +96,8 @@ export function createTranslateLoader(http: HttpClient) {
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     userProflService,
     AngularFireAuth,
-    AuthService
+    AuthService,
+    AnnonceListService
   ]
 })
 export class AppModule {}

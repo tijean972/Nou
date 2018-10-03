@@ -8,6 +8,7 @@ import { MesAnnoncesPage } from '../mes-annonces/mes-annonces';
 
 // Service
 import { AuthService } from '../../services/auth.service';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 // Traduction
 import { TranslateService } from '@ngx-translate/core';
@@ -23,7 +24,7 @@ export class HomePage {
   userInfo:any ={};
   lang:any;
 
-  constructor(public navCtrl: NavController, private auth: AuthService, public translate: TranslateService) {
+  constructor(public navCtrl: NavController, public translate: TranslateService, private afAuth: AngularFireAuth) {
     this.lang = 'mada';
     this.translate.setDefaultLang('mada');
     this.translate.use('mada');
@@ -52,21 +53,23 @@ export class HomePage {
   ionViewDidLoad() {
     //this.isConnected();
   }
+  ngOnInit(){
+    this.isConnected();
+  }
   
   isConnected(){
-    this.auth.afAuth.authState.subscribe(
+    this.afAuth.authState.subscribe(
       (user) => {
         if (user){
-          console.log(user.toJSON());
-          console.log('on est connecté');
+          //console.log(user.toJSON());
+          console.log('on est connecté HomePage');
           //this.navCtrl.setRoot(MesAnnoncesPage);
           
         } else {
           console.log('On est pas connecté');
           this.navCtrl.setRoot(SignupPage);
         }
-      },
-      (error) => {console.log("On a une erreur d'authentification en home page")}
-    )
+      })
   }
+
 }

@@ -2,12 +2,12 @@
 
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { userProfl } from '../model/userProfilModel';
+import { userProfil } from '../model/userProfilModel';
  
 @Injectable()
 export class userProflService {
  
-    private userProfilData = this.db.list<userProfl>('UserProfil');
+    private userProfilData = this.db.list<userProfil>('UserProfil');
  
     constructor(private db: AngularFireDatabase) { }
  
@@ -15,15 +15,15 @@ export class userProflService {
         return this.userProfilData;
     }
  
-    addNote(profil: userProfl) {
+    addNote(profil: userProfil) {
         return this.userProfilData.push(profil);
     }
  
-    updateNote(profil: userProfl) {
+    updateNote(profil: userProfil) {
         return this.userProfilData.update(profil.Userid, profil);
     }
  
-    removeNote(profil: userProfl) {
+    removeNote(profil: userProfil) {
         return this.userProfilData.remove(profil.Userid);
     }
 }

@@ -8,6 +8,11 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
+import { MesAnnoncesPage } from '../pages/mes-annonces/mes-annonces';
+import { AddAnnoncesPage } from '../pages/add-annonces/add-annonces';
+
+// Service
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   templateUrl: 'app.html'
@@ -15,11 +20,11 @@ import { SignupPage } from '../pages/signup/signup';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = LoginPage;
+  rootPage: any = HomePage; //MesAnnoncesPage;
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private afAuth: AngularFireAuth) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -37,7 +42,18 @@ export class MyApp {
       if(this.platform.is('android') || this.platform.is('ios')){
         this.statusBar.styleDefault();
          this.splashScreen.hide();
+         
       }
+      this.afAuth.authState.subscribe(user => {
+        if(user){
+          this.nav.setRoot(MesAnnoncesPage, {user:user});
+        } else{
+          this.nav.setRoot(LoginPage);
+        }
+     });
+
+      
+      
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       

@@ -1,3 +1,5 @@
+<!--
+
 <ion-header>
   <ion-navbar>
     <button ion-button menuToggle>
@@ -6,19 +8,26 @@
     <ion-title>Home</ion-title>
   </ion-navbar>
 </ion-header>
+-->
 
 <ion-content padding>
+  
   <ion-list>
     <ion-item>
-      <ion-label>Language</ion-label>
+      <ion-label >Language</ion-label>
       <ion-select [(ngModel)]="lang" (ionChange)="switchLanguage()">
-      <ion-option value="mada">Mada</ion-option>
-      <ion-option value="guada">guada</ion-option>
+      <ion-option value="mada">Madinina</ion-option>
+      <ion-option value="gwada">Karukéra</ion-option>
       </ion-select>
     </ion-item>
   </ion-list>
 
-  <ion-list>
+  <p text-center>
+      Démélé Yo
+  </p>
+<!--
+
+<ion-list>
     <ion-item>
      <h2>{{ 'APPLE' | translate }}</h2>
     </ion-item>
@@ -28,7 +37,9 @@
     <ion-item>
      <h2>{{ 'CAT' | translate }}</h2>
     </ion-item>
-   </ion-list>
+  </ion-list>
+-->
+  
   
 
 <div *ngIf="userInfo.phoneNumber"> PhoneNumber: {{userInfo.country_code}}{{userInfo.phoneNumber}}</div>
