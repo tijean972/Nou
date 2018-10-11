@@ -19,7 +19,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 // Base de donnéé
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFireAuth } from 'angularfire2/auth'
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireAuth } from 'angularfire2/auth';
+
 
 // Service
 import { userProflService } from '../services/UserProfilService';
@@ -68,6 +70,7 @@ export function createTranslateLoader(http: HttpClient) {
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(Enrironnement.firebase),
+    AngularFireAuthModule,
     AngularFireDatabaseModule,
     IonicModule.forRoot(MyApp),
     HttpClientModule,

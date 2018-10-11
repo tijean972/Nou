@@ -1,35 +1,41 @@
 
-
+import { Component } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { QueryFn } from 'angularfire2/database/interfaces';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestoreCollection } from 'angularfire2/firestore';
+//import { AngularFireDatabase } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
+
 import { annonce } from '../model/annonceModel';
-import { userProfil } from '../model/userProfilModel';
+//import { userProfil } from '../model/userProfilModel';
  
 @Injectable()
 export class AnnonceListService {
  
-    private dbPath = '/Annonce';
-    annonceRef: AngularFireList<annonce> = null;
+    Annonces: Observable<annonce[]>;
+    annonceCollectionRef: AngularFirestoreCollection<annonce>;
     
     
-    constructor(private db: AngularFireDatabase) { 
-        this.annonceRef = this.db.list(this.dbPath);
+    constructor() { 
+        
     }
  
-    getAnnonceList():AngularFireList<annonce> {
-        return this.annonceRef;
+    getAnnonceList() {
+        return this.Annonces;
     }
  
     createAnnonce(Annonce: annonce) {
-        return this.annonceRef.push(Annonce);
+        return this.annonceCollectionRef.add(Annonce);
     }
  
     updateAnnonce(Annonce: annonce) {
-        return this.annonceRef.update(Annonce.idAnnonce, Annonce);
+        return this.annonceCollectionRef.doc(Annonce.idAnnonce).update({Annonce});
     }
  
     removeAnnonce(Annonce: annonce) {
-        return this.annonceRef.remove(Annonce.idAnnonce);
+        return this.annonceCollectionRef.doc(Annonce.idAnnonce).delete();
     }
 }
+
+
+//npm install rxjs@6.0 rxjs-compat --save
