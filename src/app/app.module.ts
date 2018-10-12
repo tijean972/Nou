@@ -33,7 +33,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 //DAO
-import { AnnonceListService } from '../services/AnnonceService';
+
 
 
 // Déclaration firebase 
@@ -99,8 +99,7 @@ export function createTranslateLoader(http: HttpClient) {
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     userProflService,
     AngularFireAuth,
-    AuthService,
-    AnnonceListService
+    AuthService
   ]
 })
 export class AppModule {}

@@ -13,8 +13,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { annonce } from '../../model/annonceModel';
 import { userProfil } from '../../model/userProfilModel';
 
-//import service
-import { AnnonceListService } from '../../services/AnnonceService';
 
 // import pages
 import { MesAnnoncesPage } from '../mes-annonces/mes-annonces';
