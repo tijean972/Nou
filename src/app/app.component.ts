@@ -48,7 +48,7 @@ export class MyApp {
         if(user){
           this.nav.setRoot(MesAnnoncesPage, {user:user});
         } else{
-          this.nav.setRoot(LoginPage);
+          this.nav.setRoot(HomePage);
         }
      });
 
