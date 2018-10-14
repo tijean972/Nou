@@ -7,14 +7,54 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>mesAnnonces</ion-title>
+    <ion-title text-center >mes Annonces</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-    <ion-fab right bottom (click)="addAnonce()">
-        <button ion-fab color="light"><ion-icon name="arrow-dropleft"></ion-icon></button>
-      </ion-fab>
+<ion-content  class="cards-bg">
+  <!-- Les annonces de l'utilisateur-->
+  <ion-card *ngFor = "let annonce of Annonces">
+      <ion-row no-padding>
+          <ion-col text-center>
+            <button ion-button clear small color="danger" icon-start>
+              <ion-icon name='star'></ion-icon>
+              Favorite
+            </button>
+          </ion-col>
+          <ion-col text-right>
+            <button ion-button clear small color="danger" icon-start>
+              <ion-icon name='share-alt'></ion-icon>
+              Share
+            </button>
+          </ion-col>
+        </ion-row>  
+    <ion-item>
+        <ion-avatar item-start>
+            <img src="assets/img/marty-avatar.png">
+        </ion-avatar>
+        <h2>Marty McFly</h2>
+        <p>November 5, 1955</p>
+    </ion-item>
+    <ion-card-content>
+        <p>
+            {{annonce.Message}}
+        </p>
+      </ion-card-content>
+  
+      
+  
+  </ion-card>
+
+
+
+
+
+
+  <ion-fab right bottom (click)="addAnonce()">
+    <button ion-fab color="secondary">
+      <ion-icon color="primary" ios="ios-add" md="md-add"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>
