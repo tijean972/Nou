@@ -34,6 +34,7 @@ export class MesAnnoncesPage {
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private afDatabase: AngularFireDatabase) {
+
     this.user = this.navParams.get('user');
     const listAnnonce = this.afDatabase.list('/Annonce', ref => ref.orderByChild('idEmmetteur').equalTo(this.user.uid));
     listAnnonce.valueChanges().subscribe((Annon:annonce[]) => {

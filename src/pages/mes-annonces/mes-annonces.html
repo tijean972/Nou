@@ -6,39 +6,44 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title text-center >mes Annonces</ion-title>
+  <ion-navbar color="bleu">
+    <ion-title text-center >Mes Annonces</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content  class="cards-bg">
+<ion-content  class="cards-bg" >
+  
   <!-- Les annonces de l'utilisateur-->
-  <ion-card *ngFor = "let annonce of Annonces">
+  <ion-card *ngFor = "let annonce of Annonces" >
+
+    <ion-grid>
       <ion-row no-padding>
-          <ion-col text-center>
+          <ion-col col-8>
+              <ion-item>
+                  <ion-avatar item-start>
+                      <img src="assets/img/marty-avatar.png">
+                  </ion-avatar>
+                  <h2 style="color:white">Marty McFly</h2>
+                  <p>November 5, 1955</p>
+              </ion-item>
+          </ion-col>
+          <ion-col col-2>
             <button ion-button clear small color="danger" icon-start>
-              <ion-icon name='star'></ion-icon>
-              Favorite
+              <ion-icon ios="ios-bookmark-outline" md="ios-bookmark-outline"></ion-icon>
             </button>
           </ion-col>
-          <ion-col text-right>
+          <ion-col col-2 text-right>
             <button ion-button clear small color="danger" icon-start>
               <ion-icon name='share-alt'></ion-icon>
-              Share
             </button>
           </ion-col>
         </ion-row>  
-    <ion-item>
-        <ion-avatar item-start>
-            <img src="assets/img/marty-avatar.png">
-        </ion-avatar>
-        <h2>Marty McFly</h2>
-        <p>November 5, 1955</p>
-    </ion-item>
+    </ion-grid>
+    
     <ion-card-content>
-        <p>
+        <p style="color:white">
             {{annonce.Message}}
         </p>
       </ion-card-content>
@@ -53,8 +58,8 @@
 
 
   <ion-fab right bottom (click)="addAnonce()">
-    <button ion-fab color="secondary">
-      <ion-icon color="primary" ios="ios-add" md="md-add"></ion-icon>
+    <button ion-fab color="bleu">
+      <ion-icon color="light" ios="ios-add" md="md-add"></ion-icon>
     </button>
   </ion-fab>
 </ion-content>
