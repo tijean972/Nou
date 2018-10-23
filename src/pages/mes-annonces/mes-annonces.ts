@@ -6,7 +6,7 @@
  */
 
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 
 // Import model
 import { annonce } from '../../model/annonceModel';
@@ -32,20 +32,38 @@ export class MesAnnoncesPage {
   private user: any;
   public Annonces: annonce[] = [];
 
+  public loader = this.loadingCtrl.create({
+    spinner:"bubbles",
+    content: "Please wait..." //,
+    //duration: 3000
+  });
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private afDatabase: AngularFireDatabase) {
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, 
+              private afDatabase: AngularFireDatabase, public loadingCtrl: LoadingController) {
 
     this.user = this.navParams.get('user');
     const listAnnonce = this.afDatabase.list('/Annonce', ref => ref.orderByChild('idEmmetteur').equalTo(this.user.uid));
     listAnnonce.valueChanges().subscribe((Annon:annonce[]) => {
       Annon.forEach((ann) => {
-        //console.log(ann.Message);
         this.Annonces.push(ann);
       })
+
+      this.hideLoader();
     });
   }
 
   ngOnInit(){
+    this.showLoader();
+  }
+
+  //Loader 
+  showLoader() {
+    this.loader.present();
+  }
+
+  hideLoader(){
+    this.loader.dismiss();
   }
 
   addAnonce(){

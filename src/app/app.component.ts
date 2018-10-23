@@ -32,7 +32,8 @@ export class MyApp {
       { title: 'Home', component: HomePage },
       { title: 'Login page', component: LoginPage },
       { title: 'Sign Up', component: SignupPage },
-      { title: 'List', component: ListPage }
+      { title: 'List', component: ListPage },
+      { title: 'Mes annonces', component: MesAnnoncesPage }
     ];
 
   }
