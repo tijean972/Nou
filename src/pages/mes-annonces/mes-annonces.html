@@ -19,7 +19,7 @@
 <ion-content  class="cards-bg" >
   
   <!-- Les annonces de l'utilisateur-->
-  <ion-card style="background-color:white" *ngFor = "let annonce of Annonces" >
+  <ion-card style="background-color:white" *ngFor = "let annonce of Annonces" (click)="showAnnonce(annonce)" >
 
     <ion-grid>
       <ion-row no-padding>

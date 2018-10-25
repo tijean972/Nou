@@ -11,6 +11,7 @@ import { ListPage } from '../pages/list/list';
 import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
 import { MesAnnoncesPage } from '../pages/mes-annonces/mes-annonces';
 import { AddAnnoncesPage } from '../pages/add-annonces/add-annonces';
+import { AnnonceDetailPage } from '../pages/annonce-detail/annonce-detail';
 
 // Ionic - Cordova
 import { StatusBar } from '@ionic-native/status-bar';
@@ -94,6 +95,7 @@ export class MyErrorHandler implements ErrorHandler {
     ForgotPasswordPage,
     MesAnnoncesPage,
     AddAnnoncesPage,
+    AnnonceDetailPage,
     ListPage
     
   ],
@@ -121,6 +123,7 @@ export class MyErrorHandler implements ErrorHandler {
     ForgotPasswordPage,
     MesAnnoncesPage,
     AddAnnoncesPage,
+    AnnonceDetailPage,
     ListPage
   ],
   providers: [

@@ -14,6 +14,7 @@ import { userProfil } from '../../model/userProfilModel';
 
 // import pages
 import { AddAnnoncesPage } from '../add-annonces/add-annonces';
+import { AnnonceDetailPage } from '../annonce-detail/annonce-detail';
 
 // Base de données
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
@@ -31,6 +32,7 @@ export class MesAnnoncesPage {
   //private Annonces: AngularFireList<any>;
   private user: any;
   public Annonces: annonce[] = [];
+  public listAnnonce: any;
 
   public loader = this.loadingCtrl.create({
     spinner:"bubbles",
@@ -41,16 +43,18 @@ export class MesAnnoncesPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
               private afDatabase: AngularFireDatabase, public loadingCtrl: LoadingController) {
-
     this.user = this.navParams.get('user');
-    const listAnnonce = this.afDatabase.list('/Annonce', ref => ref.orderByChild('idEmmetteur').equalTo(this.user.uid));
-    listAnnonce.valueChanges().subscribe((Annon:annonce[]) => {
+    this.listAnnonce = this.afDatabase.list('/Annonce', ref => ref.orderByChild('idEmmetteur').equalTo(this.user.uid));
+    this.listAnnonce.valueChanges().subscribe((Annon:annonce[]) => {
       Annon.forEach((ann) => {
         this.Annonces.push(ann);
       })
-
       this.hideLoader();
     });
+
+  }
+  removeAnnonce($key: string) {
+    this.listAnnonce.remove($key);
   }
 
   ngOnInit(){
@@ -68,6 +72,10 @@ export class MesAnnoncesPage {
 
   addAnonce(){
     this.navCtrl.push(AddAnnoncesPage, {user:this.user});
+  }
+
+  showAnnonce(annonce) {
+    this.navCtrl.push(AnnonceDetailPage, { user: this.user, annonce: annonce })
   }
 
 
