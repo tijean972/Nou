@@ -40,11 +40,13 @@ export class MyApp {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      if(this.platform.is('android') || this.platform.is('ios')){
-        this.statusBar.styleDefault();
+     if (this.platform.is('android') || this.platform.is('ios')) {
+          this.statusBar.backgroundColorByHexString('#3498db');
+        //this.statusBar.styleDefault();
          this.splashScreen.hide();
          
-      }
+     }
+
       this.afAuth.authState.subscribe(user => {
         if(user){
           this.nav.setRoot(MesAnnoncesPage, {user:user});
