@@ -20,7 +20,7 @@ import { MesAnnoncesPage } from '../mes-annonces/mes-annonces';
 
 // Base de données
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { AngularFireStorageModule, AngularFireUploadTask } from 'angularfire2/storage';
+import { AngularFireStorage, AngularFireUploadTask } from 'angularfire2/storage';
 import { Observable, Subject, asapScheduler, pipe, of, from, interval, merge, fromEvent, SubscriptionLike, PartialObserver } from 'rxjs';
 import {EmptyObservable} from 'rxjs/observable/EmptyObservable';
 
@@ -46,7 +46,7 @@ export class AddAnnoncesPage {
   loginError: string;
   
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public afs: AngularFireDatabase, fb: FormBuilder, public storage: AngularFireStorageModule,
+  constructor(public navCtrl: NavController, public navParams: NavParams, public afs: AngularFireDatabase, fb: FormBuilder, private storage: AngularFireStorage,
     private camera: Camera) {
 
     this.user = this.navParams.get('user');
@@ -95,14 +95,13 @@ export class AddAnnoncesPage {
       mediaType: this.camera.MediaType.PICTURE,
       sourceType: this.camera.PictureSourceType.CAMERA
     }
-
     return await this.camera.getPicture(options)
   }
 
   createUploadTask(file: string): void {
     const filePath = `my-pet-crocodile_${new Date().getTime()}.jpg`;
     this.image = 'data:image/jpg;base64,' + file;
-    //this.task = this.storage.ref(filePath).putString(this.image, 'data_url');
+    this.task = this.storage.ref(filePath).putString(this.image, 'data_url');
     this.progress = this.task.percentageChanges();
   }
 

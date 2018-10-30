@@ -19,7 +19,9 @@ import { AnnonceDetailPage } from '../annonce-detail/annonce-detail';
 // Base de données
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable, Subject, asapScheduler, pipe, of, from, interval, merge, fromEvent, SubscriptionLike, PartialObserver } from 'rxjs';
-import {EmptyObservable} from 'rxjs/observable/EmptyObservable';
+import { EmptyObservable } from 'rxjs/observable/EmptyObservable';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 
 @IonicPage()
 @Component({
@@ -45,14 +47,27 @@ export class MesAnnoncesPage {
               private afDatabase: AngularFireDatabase, public loadingCtrl: LoadingController) {
     this.user = this.navParams.get('user');
     this.listAnnonce = this.afDatabase.list('/Annonce', ref => ref.orderByChild('idEmmetteur').equalTo(this.user.uid));
-    this.listAnnonce.valueChanges().subscribe((Annon:annonce[]) => {
+
+    /*this.listAnnonce.valueChanges().subscribe((Annon: annonce[]) => {
       Annon.forEach((ann) => {
+        this.Annonces.push(ann);
+      })
+      this.hideLoader();
+    });*/
+
+    this.listAnnonce.snapshotChanges().pipe().subscribe((Annon: annonce[]) => {
+      Annon.map((ann) => {
         this.Annonces.push(ann);
       })
       this.hideLoader();
     });
 
+
+
+
   }
+
+
   removeAnnonce($key: string) {
     this.listAnnonce.remove($key);
   }
