@@ -18,9 +18,9 @@ import { AnnonceDetailPage } from '../annonce-detail/annonce-detail';
 
 // Base de données
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { Observable, Subject, asapScheduler, pipe, of, from, interval, merge, fromEvent, SubscriptionLike, PartialObserver } from 'rxjs';
+import { Subject, asapScheduler, pipe, of, from, interval, merge, fromEvent, SubscriptionLike, PartialObserver } from 'rxjs';
 import { EmptyObservable } from 'rxjs/observable/EmptyObservable';
-import { Observable } from 'rxjs/Observable';
+//import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 @IonicPage()
