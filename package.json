@@ -20,6 +20,7 @@
     "@angular/http": "5.2.11",
     "@angular/platform-browser": "5.2.11",
     "@angular/platform-browser-dynamic": "5.2.11",
+    "@ionic-native/camera": "^4.16.0",
     "@ionic-native/core": "~4.11.0",
     "@ionic-native/splash-screen": "~4.11.0",
     "@ionic-native/status-bar": "~4.11.0",
@@ -28,7 +29,9 @@
     "@ngx-translate/core": "^9.1.1",
     "@ngx-translate/http-loader": "^3.0.1",
     "angularfire2": "^5.0.2",
+    "cordova-android": "~7.1.1",
     "cordova-plugin-accountkit": "^1.4.0",
+    "cordova-plugin-camera": "4.0.3",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-file": "^6.0.1",
     "cordova-plugin-file-transfer": "^1.7.1",
@@ -44,8 +47,7 @@
     "rxjs": "^6.0.0",
     "rxjs-compat": "^6.3.3",
     "sw-toolbox": "3.6.0",
-    "zone.js": "0.8.26",
-    "cordova-android": "~7.1.1"
+    "zone.js": "0.8.26"
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.1.11",
@@ -70,7 +72,8 @@
         "APP_ID": "2e38c784",
         "CHANNEL_NAME": "Testeurs_App_Nou",
         "UPDATE_METHOD": "background"
-      }
+      },
+      "cordova-plugin-camera": {}
     },
     "platforms": [
       "android"

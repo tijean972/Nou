@@ -16,12 +16,14 @@ import { AnnonceDetailPage } from '../pages/annonce-detail/annonce-detail';
 // Ionic - Cordova
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 // Base de donnéé
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 
 
 // Service
@@ -104,6 +106,7 @@ export class MyErrorHandler implements ErrorHandler {
     AngularFireModule.initializeApp(Enrironnement.firebase),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
+    AngularFireStorageModule,
     IonicModule.forRoot(MyApp),
     HttpClientModule,
     TranslateModule.forRoot({
@@ -132,7 +135,8 @@ export class MyErrorHandler implements ErrorHandler {
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     userProflService,
     AngularFireAuth,
-    AuthService
+    AuthService,
+    Camera
   ]
 })
 export class AppModule {}

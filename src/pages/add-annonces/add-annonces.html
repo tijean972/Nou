@@ -14,17 +14,37 @@
 
 
 <ion-content padding>
-    <form class="form" (ngSubmit)="btnSubmit()" [formGroup]="loginForm">
-        <div padding-horizontal>
-          <ion-input  class = "input" type="text" placeholder="Titre" formControlName="title"></ion-input>
-          <textarea   style ="color:black; width:100%; height:20%" type="textarea" placeholder="Annonce" formControlName="Message"></textarea>	
-        </div>
-          
-      
-        
-        <div padding-horizontal>
-          <div class="form-error">{{loginError}}</div>
-          <button ion-button full type="submit" [disabled]="!loginForm.valid">Creer Annonce</button>
-        </div>
-      </form>
+  <form class="form" (ngSubmit)="btnSubmit()" [formGroup]="loginForm">
+    <div padding-horizontal>
+      <ion-input class="input" type="text" placeholder="Titre" formControlName="title"></ion-input>
+      <textarea style="color:black; width:100%; height:20%" type="textarea" placeholder="Annonce" formControlName="Message"></textarea>
+    </div>
+
+
+
+
+    <div padding-horizontal>
+      <div class="form-error">{{loginError}}</div>
+      <button ion-button full type="submit" [disabled]="!loginForm.valid">Creer Annonce</button>
+    </div>
+  </form>
+  <img *ngIf="image" [src]="image">
+
+  <ng-container *ngIf="progress | async as percent">
+
+    <progress [value]="percent" max="100"></progress>
+
+  </ng-container>
+
+  <button ion-button (tap)="uploadHandler()">
+    Upload!
+  </button>
+  <button ion-button (tap)="task.pause()">
+    Pause
+  </button>
+
+  <button ion-button (tap)="task.resume()">
+    Resume
+  </button>
+
 </ion-content>

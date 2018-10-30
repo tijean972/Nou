@@ -8,6 +8,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 // Import model
 import { annonce } from '../../model/annonceModel';
@@ -19,6 +20,7 @@ import { MesAnnoncesPage } from '../mes-annonces/mes-annonces';
 
 // Base de données
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { AngularFireStorageModule, AngularFireUploadTask } from 'angularfire2/storage';
 import { Observable, Subject, asapScheduler, pipe, of, from, interval, merge, fromEvent, SubscriptionLike, PartialObserver } from 'rxjs';
 import {EmptyObservable} from 'rxjs/observable/EmptyObservable';
 
@@ -31,16 +33,22 @@ import {EmptyObservable} from 'rxjs/observable/EmptyObservable';
 })
 export class AddAnnoncesPage {
   private user: any;
-
   public annonces:any;
   public addAnnonce: any;
 
+  // Image annonce
+  public task: AngularFireUploadTask;
+  public progress: any;  // Observable 0 to 100
+  public image: string; // base64
 
+  // Formulaire
   loginForm: FormGroup;
   loginError: string;
   
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public afs: AngularFireDatabase, fb: FormBuilder) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public afs: AngularFireDatabase, fb: FormBuilder, public storage: AngularFireStorageModule,
+    private camera: Camera) {
+
     this.user = this.navParams.get('user');
     //console.log(this.user);
     this.annonces = this.afs.list('/Annonce');
@@ -57,7 +65,6 @@ export class AddAnnoncesPage {
     //'M82ZkPCvkHXZGPuunt03myghqbQ2' // 
 
     this.annonces.push(
-      
               {
                 idAnnonce:'',
                 title: this.loginForm.value.title,
@@ -70,7 +77,6 @@ export class AddAnnoncesPage {
               }
     );
     this.navCtrl.setRoot(MesAnnoncesPage, {user: this.user});
-    
   }
 
   Annuler(){
@@ -79,6 +85,30 @@ export class AddAnnoncesPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddAnnoncesPage');
+  }
+
+  async captureImage() {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.CAMERA
+    }
+
+    return await this.camera.getPicture(options)
+  }
+
+  createUploadTask(file: string): void {
+    const filePath = `my-pet-crocodile_${new Date().getTime()}.jpg`;
+    this.image = 'data:image/jpg;base64,' + file;
+    //this.task = this.storage.ref(filePath).putString(this.image, 'data_url');
+    this.progress = this.task.percentageChanges();
+  }
+
+  async uploadHandler() {
+    const base64 = await this.captureImage();
+    this.createUploadTask(base64);
   }
 
 }
