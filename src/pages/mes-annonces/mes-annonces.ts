@@ -17,7 +17,7 @@ import { AddAnnoncesPage } from '../add-annonces/add-annonces';
 import { AnnonceDetailPage } from '../annonce-detail/annonce-detail';
 
 // Base de données
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireList, snapshotChanges } from 'angularfire2/database';
 import { Subject, asapScheduler, pipe, of, from, interval, merge, fromEvent, SubscriptionLike, PartialObserver } from 'rxjs';
 import { EmptyObservable } from 'rxjs/observable/EmptyObservable';
 //import { Observable } from 'rxjs/Observable';
@@ -48,22 +48,35 @@ export class MesAnnoncesPage {
     this.user = this.navParams.get('user');
     this.listAnnonce = this.afDatabase.list('/Annonce', ref => ref.orderByChild('idEmmetteur').equalTo(this.user.uid));
 
-    /*this.listAnnonce.valueChanges().subscribe((Annon: annonce[]) => {
+   /*this.listAnnonce.valueChanges().subscribe((Annon: annonce[]) => {
       Annon.forEach((ann) => {
         this.Annonces.push(ann);
       })
       this.hideLoader();
     });*/
 
-    this.listAnnonce.snapshotChanges().pipe().subscribe((Annon: annonce[]) => {
-      Annon.map((ann) => {
-        this.Annonces.push(ann);
-      })
-      this.hideLoader();
-    });
 
-
-
+    this.listAnnonce.snapshotChanges(['child_added'])
+      .subscribe(actions => {
+        actions.forEach(action => {
+          //console.log(action.type);
+          //console.log(action.key);
+          //console.log(action.payload.val().Message);
+          
+          let an: annonce = {
+            idAnnonce: action.key,
+            title: action.payload.val().title,
+            Message: action.payload.val().Message,
+            createAnnonce: action.payload.val().createAnnonce,
+            idEmmetteur: action.payload.val().idEmmetteur,
+            categorie: action.payload.val().categorie,
+            competenceRequise: action.payload.val().competenceRequise,
+            nbLike: action.payload.val().nbLike
+          };
+          this.Annonces.push(an);
+        });
+        this.hideLoader();
+      });
 
   }
 
