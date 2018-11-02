@@ -10,6 +10,7 @@ import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { MesAnnoncesPage } from '../pages/mes-annonces/mes-annonces';
 import { AddAnnoncesPage } from '../pages/add-annonces/add-annonces';
+import { IntroPage } from '../pages/intro/intro';
 
 // Service
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -33,7 +34,8 @@ export class MyApp {
       { title: 'Login page', component: LoginPage },
       { title: 'Sign Up', component: SignupPage },
       { title: 'List', component: ListPage },
-      { title: 'Mes annonces', component: MesAnnoncesPage }
+      { title: 'Mes annonces', component: MesAnnoncesPage },
+      { title: 'Introduction', component: IntroPage}
     ];
 
   }

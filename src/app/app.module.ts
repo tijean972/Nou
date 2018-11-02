@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Pages
 import { MyApp } from './app.component';
@@ -12,11 +13,13 @@ import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
 import { MesAnnoncesPage } from '../pages/mes-annonces/mes-annonces';
 import { AddAnnoncesPage } from '../pages/add-annonces/add-annonces';
 import { AnnonceDetailPage } from '../pages/annonce-detail/annonce-detail';
+import { IntroPage } from '../pages/intro/intro';
 
 // Ionic - Cordova
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { MediaCapture } from '@ionic-native/media-capture';
 
 // Base de donnéé
 import { AngularFireModule } from 'angularfire2';
@@ -98,11 +101,13 @@ export class MyErrorHandler implements ErrorHandler {
     MesAnnoncesPage,
     AddAnnoncesPage,
     AnnonceDetailPage,
-    ListPage
+    ListPage,
+    IntroPage
     
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AngularFireModule.initializeApp(Enrironnement.firebase),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
@@ -127,7 +132,8 @@ export class MyErrorHandler implements ErrorHandler {
     MesAnnoncesPage,
     AddAnnoncesPage,
     AnnonceDetailPage,
-    ListPage
+    ListPage,
+    IntroPage
   ],
   providers: [
     StatusBar,
@@ -136,7 +142,8 @@ export class MyErrorHandler implements ErrorHandler {
     userProflService,
     AngularFireAuth,
     AuthService,
-    Camera
+    Camera,
+    MediaCapture
   ]
 })
 export class AppModule {}

@@ -6,9 +6,10 @@
  */
 
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { MediaCapture, MediaFile, CaptureError, CaptureImageOptions, CaptureVideoOptions } from '@ionic-native/media-capture';
 
 // Import model
 import { annonce } from '../../model/annonceModel';
@@ -40,14 +41,22 @@ export class AddAnnoncesPage {
   public task: AngularFireUploadTask;
   public progress: any;  // Observable 0 to 100
   public image: string; // base64
+  public files: any = [];
+  public url: string;
 
   // Formulaire
   loginForm: FormGroup;
   loginError: string;
   
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public afs: AngularFireDatabase, fb: FormBuilder, private storage: AngularFireStorage,
-    private camera: Camera) {
+  constructor(  public navCtrl: NavController, 
+                public navParams: NavParams, 
+                public afs: AngularFireDatabase, 
+                fb: FormBuilder, 
+                private storage: AngularFireStorage,
+                private camera: Camera, 
+                public loadingCtrl: LoadingController,
+                private mediaCapture: MediaCapture) {
 
     this.user = this.navParams.get('user');
     //console.log(this.user);
@@ -58,6 +67,8 @@ export class AddAnnoncesPage {
 			Message: ['', Validators.compose([Validators.required, Validators.maxLength(150)])],
 			title: ['', Validators.compose([Validators.required, Validators.maxLength(30)])]
     });
+
+    // récupération des photos
   }
 
   btnSubmit(){
@@ -87,6 +98,52 @@ export class AddAnnoncesPage {
     console.log('ionViewDidLoad AddAnnoncesPage');
   }
 
+
+  chooseFileImage() {
+    let options: CaptureImageOptions = { limit: 3 };
+    this.mediaCapture.captureImage(options)
+      .then(
+        (data: MediaFile[]) => {
+          this.files = data;
+          console.log(data)},
+        (err: CaptureError) => console.error(err)
+      );
+  }
+
+  chooseFileVideo() {
+    let options: CaptureVideoOptions;
+    this.mediaCapture.captureImage(options)
+      .then(
+        (data: MediaFile[]) => {
+          this.files = data;
+          console.log(data)},
+        (err: CaptureError) => console.error(err)
+      );
+  }
+
+  upload() {
+    // Create a root reference
+    let storageRef = this.storage.ref("/images");
+    let loading = this.loadingCtrl.create({ content: 'Please wait...' });
+    loading.present();
+    this.files = this.chooseFileImage();
+
+
+
+    for (let selectedFile of this.files) {
+      let path = '/files/' + Date.now() + `${selectedFile.name}`;
+      let iRef = storageRef.child(path);
+      iRef.put(selectedFile).then(() => {
+        loading.dismiss();
+        iRef.getDownloadURL().then( url => this.url = url )
+      });
+      
+    }
+  }
+
+}
+
+  /*
   async captureImage() {
     const options: CameraOptions = {
       quality: 100,
@@ -95,7 +152,7 @@ export class AddAnnoncesPage {
       mediaType: this.camera.MediaType.PICTURE,
       sourceType: this.camera.PictureSourceType.CAMERA
     }
-    return await this.camera.getPicture(options)
+    return await this.camera.getPicture(options);
   }
 
   createUploadTask(file: string): void {
@@ -109,5 +166,7 @@ export class AddAnnoncesPage {
     const base64 = await this.captureImage();
     this.createUploadTask(base64);
   }
+  */
 
-}
+
+
