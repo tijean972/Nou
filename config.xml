@@ -92,7 +92,10 @@
         <variable name="CHANNEL_NAME" value="Testeurs_App_Nou" />
         <variable name="UPDATE_METHOD" value="background" />
     </plugin>
-    <engine name="android" spec="~7.1.1" />
     <plugin name="cordova-plugin-camera" spec="4.0.3" />
+<<<<<<< HEAD
     <plugin name="cordova-plugin-media-capture" spec="3.0.2" />
+=======
+    <engine name="android" spec="~7.1.1" />
+>>>>>>> 26b17c6e6dc4b477ce54f06b660cc727c5ca1970
 </widget>

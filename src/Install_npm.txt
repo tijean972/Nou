@@ -3,8 +3,12 @@
 ionic cordova plugin add cordova-plugin-camera
 npm install --save @ionic-native/camera
 
+<<<<<<< HEAD
 
 
 02/11/2018
 ionic cordova plugin add cordova-plugin-media-capture
 npm install --save @ionic-native/media-capture
+=======
+pour modifier
+>>>>>>> 26b17c6e6dc4b477ce54f06b660cc727c5ca1970
