@@ -7,6 +7,7 @@
 
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 // Import model
 import { annonce } from '../../model/annonceModel';
@@ -44,18 +45,29 @@ export class MesAnnoncesPage {
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
-              private afDatabase: AngularFireDatabase, public loadingCtrl: LoadingController) {
-    this.user = this.navParams.get('user');
+              private afDatabase: AngularFireDatabase, 
+              public loadingCtrl: LoadingController,
+              private nativeStorage: NativeStorage) {
+
+    if(!this.navParams.get('user')){
+      this.nativeStorage.getItem('myitem')
+      .then(
+        data => 
+        {
+          console.log("C'est le native storage:" + data);
+          
+        },
+        error => console.error(error)
+      );
+
+    } else {
+      this.user = this.navParams.get('user')
+    }
+
+    // Création 
     this.listAnnonce = this.afDatabase.list('/Annonce', ref => ref.orderByChild('idEmmetteur').equalTo(this.user.uid));
 
-   /*this.listAnnonce.valueChanges().subscribe((Annon: annonce[]) => {
-      Annon.forEach((ann) => {
-        this.Annonces.push(ann);
-      })
-      this.hideLoader();
-    });*/
-
-
+    // Récupération des annonces depuis la base de données.
     this.listAnnonce.snapshotChanges(['child_added'])
       .subscribe(actions => {
         actions.forEach(action => {

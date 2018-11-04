@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 // Page 
 import { LoginPage } from '../login/login';
@@ -24,7 +25,7 @@ export class HomePage {
   userInfo:any ={};
   lang:any;
 
-  constructor(public navCtrl: NavController, public translate: TranslateService, private afAuth: AngularFireAuth) {
+  constructor(public navCtrl: NavController, public translate: TranslateService, private afAuth: AngularFireAuth, private nativeStorage: NativeStorage) {
     this.lang = 'mada';
     this.translate.setDefaultLang('mada');
     this.translate.use('mada');
@@ -43,7 +44,7 @@ export class HomePage {
       facebookNotificationsEnabled: true,
     }, data => {
         (<any>window).AccountKitPlugin.getAccount(
-          info => this.navCtrl.setRoot(LoginPage,{
+          info => this.navCtrl.setRoot(SignupPage,{
             info : info
           }),
           err => console.log(err));
@@ -54,6 +55,7 @@ export class HomePage {
     //this.isConnected();
   }
   ngOnInit(){
+    console.log('on est connecté HomePage');
     this.isConnected();
   }
   
@@ -61,10 +63,15 @@ export class HomePage {
     this.afAuth.authState.subscribe(
       (user) => {
         if (user){
+          this.nativeStorage.setItem('Utilisateur', { user: user})
+          .then(
+            () => console.log('Utilisateur est enregistré dans le Native Storage!'),
+            error => console.error(" L'utilisateur n'a pas été enregistré:", error)
+          );
           //console.log(user.toJSON());
-          console.log('on est connecté HomePage');
-          //this.navCtrl.setRoot(MesAnnoncesPage);
           
+          this.navCtrl.setRoot(MesAnnoncesPage, { user:user})
+
         } else {
           console.log('On est pas connecté');
           this.navCtrl.setRoot(SignupPage);

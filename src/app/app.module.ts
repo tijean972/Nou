@@ -20,6 +20,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { MediaCapture } from '@ionic-native/media-capture';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 // Base de donnéé
 import { AngularFireModule } from 'angularfire2';
@@ -143,7 +144,8 @@ export class MyErrorHandler implements ErrorHandler {
     AngularFireAuth,
     AuthService,
     Camera,
-    MediaCapture
+    MediaCapture,
+    NativeStorage
   ]
 })
 export class AppModule {}
