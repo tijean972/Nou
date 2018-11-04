@@ -128,8 +128,6 @@ export class AddAnnoncesPage {
     loading.present();
     this.files = this.chooseFileImage();
 
-
-
     for (let selectedFile of this.files) {
       let path = '/files/' + Date.now() + `${selectedFile.name}`;
       let iRef = storageRef.child(path);
