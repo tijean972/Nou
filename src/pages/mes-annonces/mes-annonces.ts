@@ -6,7 +6,7 @@
  */
 
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, Platform } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 
 // Import model
@@ -48,47 +48,36 @@ export class MesAnnoncesPage {
               private afDatabase: AngularFireDatabase, 
               public loadingCtrl: LoadingController,
               private nativeStorage: NativeStorage) {
+              this.user = this.navParams.get('user');
 
-    if(!this.navParams.get('user')){
-      this.nativeStorage.getItem('myitem')
-      .then(
-        data => 
-        {
-          console.log("C'est le native storage:" + data);
+
+
+        // Création 
+        this.listAnnonce = this.afDatabase.list('/Annonce', ref => ref.orderByChild('idEmmetteur').equalTo(this.user.uid));
+
+        // Récupération des annonces depuis la base de données.
+        this.listAnnonce.snapshotChanges(['child_added'])
+          .subscribe(actions => {
+            actions.forEach(action => {
+              //console.log(action.type);
+              //console.log(action.key);
+              //console.log(action.payload.val().Message);
+              
+              let an: annonce = {
+                idAnnonce: action.key,
+                title: action.payload.val().title,
+                Message: action.payload.val().Message,
+                createAnnonce: action.payload.val().createAnnonce,
+                idEmmetteur: action.payload.val().idEmmetteur,
+                categorie: action.payload.val().categorie,
+                competenceRequise: action.payload.val().competenceRequise,
+                nbLike: action.payload.val().nbLike
+              };
+              this.Annonces.push(an);
+            });
+            this.hideLoader();
+          });
           
-        },
-        error => console.error(error)
-      );
-
-    } else {
-      this.user = this.navParams.get('user')
-    }
-
-    // Création 
-    this.listAnnonce = this.afDatabase.list('/Annonce', ref => ref.orderByChild('idEmmetteur').equalTo(this.user.uid));
-
-    // Récupération des annonces depuis la base de données.
-    this.listAnnonce.snapshotChanges(['child_added'])
-      .subscribe(actions => {
-        actions.forEach(action => {
-          //console.log(action.type);
-          //console.log(action.key);
-          //console.log(action.payload.val().Message);
-          
-          let an: annonce = {
-            idAnnonce: action.key,
-            title: action.payload.val().title,
-            Message: action.payload.val().Message,
-            createAnnonce: action.payload.val().createAnnonce,
-            idEmmetteur: action.payload.val().idEmmetteur,
-            categorie: action.payload.val().categorie,
-            competenceRequise: action.payload.val().competenceRequise,
-            nbLike: action.payload.val().nbLike
-          };
-          this.Annonces.push(an);
-        });
-        this.hideLoader();
-      });
 
   }
 

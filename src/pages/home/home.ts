@@ -59,7 +59,7 @@ export class HomePage {
     //this.isConnected();
   }
   ngOnInit(){
-    console.log('on est connecté HomePage');
+    //console.log('on est connecté HomePage');
     this.isConnected();
   }
   
@@ -68,7 +68,6 @@ export class HomePage {
       this.afAuth.authState.subscribe(
         (user) => {
               if (user){
-
                 if (this.platform.is('android') || this.platform.is('ios')) {
                     this.nativeStorage.setItem('Utilisateur', { user: user})
                     .then(
@@ -85,15 +84,7 @@ export class HomePage {
               }
         })
      })
-    
 
-
-
-
-
-
-
-    
   }
 
 }
