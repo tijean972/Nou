@@ -16,9 +16,11 @@ import { userProfil } from '../../model/userProfilModel';
 // import pages
 import { AddAnnoncesPage } from '../add-annonces/add-annonces';
 import { AnnonceDetailPage } from '../annonce-detail/annonce-detail';
+import { SignupPage } from '../signup/signup';
 
 // Base de données
 import { AngularFireDatabase, AngularFireList, snapshotChanges } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { Subject, asapScheduler, pipe, of, from, interval, merge, fromEvent, SubscriptionLike, PartialObserver } from 'rxjs';
 import { EmptyObservable } from 'rxjs/observable/EmptyObservable';
 //import { Observable } from 'rxjs/Observable';
@@ -47,8 +49,11 @@ export class MesAnnoncesPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, 
               private afDatabase: AngularFireDatabase, 
               public loadingCtrl: LoadingController,
+              public platform: Platform,
+              private afAuth: AngularFireAuth,
               private nativeStorage: NativeStorage) {
               this.user = this.navParams.get('user');
+              this!.isConnected();
 
 
 
@@ -81,6 +86,20 @@ export class MesAnnoncesPage {
 
   }
 
+  isConnected(){
+    this.platform.ready().then(() => {
+      this.afAuth.authState.subscribe(
+        (user) => {
+              if(user){
+                this.user = user;              
+              } else {
+                console.log('On est pas connecté');
+                this.navCtrl.setRoot(SignupPage);
+              }
+        })
+     })
+
+  }
 
   removeAnnonce($key: string) {
     this.listAnnonce.remove($key);
