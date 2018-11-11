@@ -139,9 +139,9 @@ export class AddAnnoncesPage {
     }
   }
 
-}
 
-  /*
+
+// Méthode du Crododile  
   async captureImage() {
     const options: CameraOptions = {
       quality: 100,
@@ -164,7 +164,8 @@ export class AddAnnoncesPage {
     const base64 = await this.captureImage();
     this.createUploadTask(base64);
   }
-  */
+  
+}
 
 
 

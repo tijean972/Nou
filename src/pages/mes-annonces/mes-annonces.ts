@@ -17,6 +17,7 @@ import { userProfil } from '../../model/userProfilModel';
 import { AddAnnoncesPage } from '../add-annonces/add-annonces';
 import { AnnonceDetailPage } from '../annonce-detail/annonce-detail';
 import { SignupPage } from '../signup/signup';
+import { LoginPage } from '../login/login';
 
 // Base de données
 import { AngularFireDatabase, AngularFireList, snapshotChanges } from 'angularfire2/database';
@@ -94,7 +95,7 @@ export class MesAnnoncesPage {
                 this.user = user;              
               } else {
                 console.log('On est pas connecté');
-                this.navCtrl.setRoot(SignupPage);
+                this.navCtrl.setRoot(LoginPage);
               }
         })
      })

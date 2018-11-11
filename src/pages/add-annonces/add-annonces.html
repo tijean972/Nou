@@ -29,7 +29,7 @@
     </div>
   </form>
 
-  <!--
+  
 
 <img *ngIf="image" [src]="image">
   <ng-container *ngIf="progress | async as percent">
@@ -46,12 +46,12 @@
   <button ion-button (tap)="task.resume()">
     Resume
   </button>
-  -->
   
-
+  
+<!--
   Uploaded File: <a *ngIf="this.url" href="{{this.url}}">{{this.url}}</a>
-
-  <button ion-button (click)="chooseFileImage()">Upload Image</button>
-  <!--  <input style="display: none;" id="image" name="image" type="file" (change)="upload()"> -->
+  <button ion-button (click)="uploadHandler()">Upload Image</button>
+-->
+<!--  <input style="display: none;" id="image" name="image" type="file" (change)="upload()"> -->
 
 </ion-content>
