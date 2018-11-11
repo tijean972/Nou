@@ -120,7 +120,7 @@ export class AddAnnoncesPage {
         (err: CaptureError) => console.error(err)
       );
   }
-
+/*
   upload() {
     // Create a root reference
     let storageRef = this.storage.ref("/images");
@@ -138,7 +138,7 @@ export class AddAnnoncesPage {
       
     }
   }
-
+*/
 
 
 // Méthode du Crododile  
