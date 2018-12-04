@@ -155,7 +155,7 @@ export class AddAnnoncesPage {
 
   createUploadTask(file: string): void {
     const filePath = `my-pet-crocodile_${new Date().getTime()}.jpg`;
-    this.image = 'data:image/jpg;base64,' + file;
+    this.image = 'data:image/jpg;base64' + file;
     this.task = this.storage.ref(filePath).putString(this.image, 'data_url');
     this.progress = this.task.percentageChanges();
   }
