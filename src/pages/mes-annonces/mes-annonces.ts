@@ -54,7 +54,7 @@ export class MesAnnoncesPage {
               private afAuth: AngularFireAuth,
               private nativeStorage: NativeStorage) {
               this.user = this.navParams.get('user');
-              this!.isConnected();
+              this.isConnected();
 
 
 
